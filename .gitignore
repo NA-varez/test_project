@@ -1,41 +1,36 @@
 # Code Composer Studio specific files to ignore
 
-# Build output directories
+/.settings/
 /Debug/
 /Release/
 */Debug/
 */Release/
 
-# Auto-generated files
 .xdchelp
 
-# Auto-generated folders
 .config/
 .launches/
+.settings/
 
-# Backup files
+
 *.bak
 
-# Optional: Uncomment if you're auto-generating target config files
-# targetConfigs/
+targetConfigs/
 
-# Compiled object files
 *.o
 *.obj
 *.d
 *.map
+*.html
 
-# Compiled libraries and executables
+
 *.out
 *.hex
 *.bin
 
-# OS-specific files
 .DS_Store
 Thumbs.db
 
-# Eclipse workspace metadata
 .metadata/
 
-# Log files
 *.log
