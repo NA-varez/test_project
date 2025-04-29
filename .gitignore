@@ -1,5 +1,6 @@
 # Code Composer Studio specific files to ignore
 
+/MCU+Image/
 /.settings/
 /Debug/
 /Release/
