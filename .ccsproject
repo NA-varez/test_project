@@ -16,4 +16,5 @@
 	<templateProperties value="id=uart2echo_CC3235SF_LAUNCHXL_freertos_ticlang.projectspec.uart2echo_CC3235SF_LAUNCHXL_freertos_ticlang,buildProfile=release,isHybrid=true"/>
 	<origin value="C:\ti\simplelink_cc32xx_sdk_7_10_00_13\examples\rtos\CC3235SF_LAUNCHXL\drivers\uart2echo\freertos\ticlang\uart2echo_CC3235SF_LAUNCHXL_freertos_ticlang.projectspec"/>
 	<filesToOpen value=""/>
+	<isTargetManual value="true"/>
 </projectOptions>

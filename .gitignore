@@ -1,6 +1,7 @@
 # Code Composer Studio specific files to ignore
 
 /MCU+Image/
+/targetConfigs/
 /.settings/
 /Debug/
 /Release/
@@ -18,6 +19,7 @@
 
 targetConfigs/
 
+*.out
 *.o
 *.obj
 *.d
