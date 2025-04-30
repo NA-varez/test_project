@@ -15,10 +15,11 @@
 .settings/
 
 
-*.bak
 
 targetConfigs/
 
+image.syscfg*
+*.bak
 *.out
 *.o
 *.obj
