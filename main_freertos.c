@@ -48,6 +48,11 @@
 
 #include <ti/drivers/Board.h>
 
+#ifndef NULL
+#define NULL   ((void *) 0)
+#endif
+
+
 extern void *mainThread(void *arg0);
 
 /* Stack size in bytes */

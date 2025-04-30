@@ -31,9 +31,6 @@ targetConfigs/
 *.hex
 *.bin
 
-.DS_Store
-Thumbs.db
-
 .metadata/
 
 *.log
