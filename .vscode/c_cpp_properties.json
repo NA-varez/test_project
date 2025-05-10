@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:\\FreeRTOSv202212.01\\FreeRTOS\\Source\\include",
+                "C:\\FreeRTOSv202212.01\\FreeRTOS\\Source\\portable\\CCS\\ARM_CM4F",
+                "C:\\simplelink_cc32xx_sdk_7_10_00_13\\source\\ti",
+                "C:\\simplelink_cc32xx_sdk_7_10_00_13\\source\\ti\\posix",
+                "C:\\simplelink_cc32xx_sdk_7_10_00_13\\source\\ti\\drivers",
+                "C:\\simplelink_cc32xx_sdk_7_10_00_13\\source\\third_party",
+                "C:\\ti\\ccs1281\\ccs\\tools\\compiler"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "windows-gcc-x86"
+        }
+    ],
+    "version": 4
+}
