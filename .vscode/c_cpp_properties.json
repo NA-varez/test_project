@@ -10,7 +10,8 @@
                 "C:\\simplelink_cc32xx_sdk_7_10_00_13\\source\\ti\\posix",
                 "C:\\simplelink_cc32xx_sdk_7_10_00_13\\source\\ti\\drivers",
                 "C:\\simplelink_cc32xx_sdk_7_10_00_13\\source\\third_party",
-                "C:\\ti\\ccs1281\\ccs\\tools\\compiler"
+                "C:\\ti\\ccs1281\\ccs\\tools\\compiler",
+                "C:/simplelink_cc32xx_sdk_7_10_00_13/source"
             ],
             "defines": [
                 "_DEBUG",

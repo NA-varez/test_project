@@ -1,69 +1,73 @@
-cmake_minimum_required(VERSION 3.12)
+# Top-level CMakeLists.txt
+cmake_minimum_required(VERSION 3.16)
+project(cc32xx_embedded VERSION 1.0.0 LANGUAGES C CXX)
 
-if(DEFINED ENV{TI_SIMPLELINK_SDK_PATH})
-    # Continue
-else()
-    error(FATAL_ERROR "TI_SIMPLELINK_SDK_PATH Not set")
-endif()
+# Set TI toolchain paths (based on your makefile)
+set(TI_TOOLCHAIN_PATH "C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS")
 
-set(CC3235SF_BOARD quadrc2)
+set(CMAKE_C_COMPILER   "${TI_TOOLCHAIN_PATH}/bin/tiarmclang.exe")
+set(CMAKE_CXX_COMPILER "${TI_TOOLCHAIN_PATH}/bin/tiarmclang.exe")
+set(CMAKE_AR           "${TI_TOOLCHAIN_PATH}/bin/tiarmar.exe")
+set(CMAKE_OBJCOPY      "${TI_TOOLCHAIN_PATH}/bin/tiarmobjcopy.exe")
 
-# Copy over the squad board and boot2 to sdk directory
-#message("${PICO_BOARD}")
-message("${CMAKE_CURRENT_SOURCE_DIR}")
-if("${CC3235SF_BOARD}" STREQUAL "quadrc2")
-    message("")
+# Set SDK and FreeRTOS paths
+set(CC32XX_SDK_PATH "C:/ti/simplelink_cc32xx_sdk_7_10_00_13")
+set(FREERTOS_PATH "C:/FreeRTOSv202212.01/FreeRTOS")
 
-#
-#
-#
+# Global include directories - inherited by all targets
+include_directories(
+    ${CC32XX_SDK_PATH}/source
+    ${CC32XX_SDK_PATH}/kernel/freertos
+    ${CC32XX_SDK_PATH}/source/ti/posix/ticlang
+    ${FREERTOS_PATH}/Source/include
+    ${FREERTOS_PATH}/Source/portable/GCC/ARM_CM4F
+)
 
+# Compiler flags from your makefile
+add_compile_options(
+    -mcpu=cortex-m4
+    -mfloat-abi=soft
+    -mfpu=none
+    -mlittle-endian
+    -mthumb
+    -Oz
+    -gdwarf-3
+    -march=armv7e-m
+    # Dependency generation
+    -MMD
+    -MP
+)
 
-endif
+# Global preprocessor definitions
+add_compile_definitions(DeviceFamily_CC3220)
 
+# Linker flags from your makefile
+add_link_options(
+    -Wl,-i"${CC32XX_SDK_PATH}/source"
+    -Wl,-i"${TI_TOOLCHAIN_PATH}/lib"
+    -Wl,--diag_wrap=off
+    -Wl,--display_error_number
+    -Wl,--warn_sections
+    -Wl,--rom_model
+    # Add standard library
+    -Wl,-llibc.a
+)
 
+# SysConfig tool
+set(SYSCONFIG_TOOL "C:/ti/sysconfig_1_12_0/sysconfig_cli.bat")
 
-# Pull in SDK (must be before project)
-#set(PICO_PLATFORM rp2040)
-#include(pico_sdk_import.cmake)
+# Set output directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/out)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-#project(QuAD C CXX ASM)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 11)
+# Include helper functions
+include(cmake/cc32xx-config.cmake)
 
-#could put a simplelinksdk version check here
-#if (PICO_SDK_VERSION_STRING VERSION_LESS "1.3.0")
-#    message(FATAL_ERROR "Raspberry Pi Pico SDK version 1.3.0 (or later) required. Your version is ${PICO_SDK_VERSION_STRING}")
-#endif()
+# Add subdirectories
+add_subdirectory(common)
+add_subdirectory(modules)
+add_subdirectory(apps)
 
-
-# Initialize the SDK
-#pico_sdk_init()
-
-add_compile_options(-Wall
-        -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int
-        -Wno-unused-function # we have some for the docs that aren't called
-        )
-if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
-    add_compile_options(-Wno-maybe-uninitialized)
-endif()
-
-
-
-add_subdirectory(uart2echo)
-add_subdirectory(power_efficiency_test)
-
-#add_subdirectory(m16)
-#add_subdirectory(max_10)
-#add_subdirectory(bmp390)
-#add_subdirectory(bno055)
-#add_subdirectory(mcp9808)
-#add_subdirectory(power_manager)
-#add_subdirectory(quad_test)
-#add_subdirectory(bq25890)
-#add_subdirectory(pca9685)
-#add_subdirectory(sx126x)
-#add_subdirectory(apps)
-#add_subdirectory(telemetry)
-#add_subdirectory(atwinc1500)
-#add_subdirectory(mb85rs256t)
+# Option to build tests
+option(BUILD_TESTS "Build module tests" OFF)
